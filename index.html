@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Happy Birthday My Love 💕</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+body{background:#ffeef4;color:#333;overflow-x:hidden;scroll-behavior:smooth;}
+.hidden{display:none;}
+.center{display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;text-align:center;}
+input[type="password"]{padding:10px 15px;border:1px solid #ccc;border-radius:10px;font-size:16px;margin-top:10px;width:220px;}
+button{background:#ffb6c1;border:none;padding:10px 20px;border-radius:20px;cursor:pointer;font-weight:600;margin-top:15px;transition:background .3s;}
+button:hover{background:#ff9db0;}
+nav{position:fixed;top:0;width:100%;background:#fff8fb;display:flex;justify-content:center;gap:25px;padding:12px 0;box-shadow:0 2px 5px rgba(0,0,0,0.05);z-index:10;}
+nav a{text-decoration:none;color:#333;font-weight:600;}
+section{min-height:100vh;padding:90px 20px 60px;max-width:900px;margin:auto;}
+h1,h2{color:#ff6699;}
+.message-box{background:white;padding:25px;border-radius:20px;box-shadow:0 4px 10px rgba(0,0,0,0.05);margin-top:20px;}
+.memories{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px;margin-top:20px;}
+.memories img{width:100%;height:200px;border-radius:20px;object-fit:cover;box-shadow:0 4px 8px rgba(0,0,0,0.1);background:linear-gradient(180deg,#fff0f4,#ffeef4);}
+#hearts span{position:fixed;bottom:-20px;animation:float 6s linear infinite;color:#ffb6c1;font-size:20px;z-index:0;pointer-events:none;}
+@keyframes float{0%{transform:translateY(0) scale(1);}100%{transform:translateY(-100vh) scale(1.5);opacity:0;}}
+#topBtn{position:fixed;bottom:20px;right:20px;background:#ffb6c1;color:#fff;border:none;padding:10px 15px;border-radius:50%;cursor:pointer;display:none;}
+.small-note{color:#a33b67;margin-top:8px;font-size:14px;}
+</style>
+</head>
+<body>
+<!-- Password Screen -->
+<div id="lockScreen" class="center">
+  <h2>Enter our special date ❤️ (MMDDYY)</h2>
+  <input type="password" id="password" placeholder="Enter the date it all began" />
+  <button onclick="checkPassword()">Submit</button>
+  <div class="small-note">Type your special date to open the surprise</div>
+</div>
+
+<!-- Main Content -->
+<div id="mainContent" class="hidden" aria-hidden="true">
+  <!-- Music file name used below: music.mp3 (place in same folder) -->
+  <audio id="bgMusic" src="song.mp3" preload="auto" loop></audio>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#message">Message</a>
+    <a href="#memories">Memories</a>
+    <a href="#foryou">For You</a>
+  </nav>
+
+  <section id="home" class="center" aria-label="Home">
+    <h1>Happy Birthday My Love 💕</h1>
+  </section>
+
+  <section id="message" aria-label="Message">
+    <h2>My Message for You</h2>
+    <div class="message-box">
+      <p>It’s your first birthday since we became us, and I’m really thankful to have you in my life.
+You’ve made my days brighter and my heart happier in ways I didn’t expect.
+I wish you nothing but good health, more smiles, and peace of mind always. Sana bumait ka na rin kahit konti.
+<p>
+
+
+
+
+</p>
+
+<p>I love you so much, mahal ko always and forever. 💕</b></p>
+    </div>
+  </section>
+
+
+  <section id="memories" aria-label="Memories">
+    <h2>Our Memories</h2>
+    <div class="memories">
+      <!-- Replace these filenames with your pictures (pic1.jpg ... pic9.jpg) -->
+      <img src="photo1.jpg" alt="Memory 1" />
+      <img src="photo2.jpg" alt="Memory 2" />
+      <img src="photo3.jpg" alt="Memory 3" />
+      <img src="photo4.jpg" alt="Memory 4" />
+      <img src="photo5.jpg" alt="Memory 5" />
+      <img src="photo6.jpg" alt="Memory 6" />
+      <img src="photo7.jpg" alt="Memory 7" />
+      <img src="photo8.jpg" alt="Memory 8" />
+      <img src="photo9.jpg" alt="Memory 9" />
+    </div>
+    <div class="small-note">I love you so much my love</div>
+  </section>
+
+  <section id="foryou" class="center" aria-label="For You">
+    <h2>For You, My Love 💗</h2>
+    <p>Thank you for being my person. I’m always yours, in all ways.</p>
+    <p>Kantutan naaaaaa</p>
+  </section>
+</div>
+
+<div id="hearts"></div>
+<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* PASSWORD logic: current password = "112724" */
+const lockScreen = document.getElementById('lockScreen');
+const mainContent = document.getElementById('mainContent');
+const passwordInput = document.getElementById('password');
+const bgMusic = document.getElementById('bgMusic');
+
+function checkPassword(){
+  const val = passwordInput.value.trim();
+  if(val === "112724"){
+    // reveal content
+    lockScreen.classList.add('hidden');
+    mainContent.classList.remove('hidden');
+    mainContent.setAttribute('aria-hidden','false');
+    // start music fade-in
+    fadeInMusic();
+  } else {
+    alert("Wrong password, love 🩷");
+  }
+}
+
+/* Fade-in music after password entered */
+function fadeInMusic(){
+  let vol = 0;
+  bgMusic.volume = 0;
+  // try to play (some browsers require interaction; this is triggered by clicking Submit)
+  bgMusic.play().catch(()=>{/* ignore play errors */});
+  const fade = setInterval(()=>{
+    if(vol < 1){
+      vol = Math.min(1, vol + 0.01);
+      bgMusic.volume = vol;
+    } else {
+      clearInterval(fade);
+    }
+  },100); // increases volume gradually
+}
+
+/* Back-to-top button show/hide */
+const topBtn = document.getElementById('topBtn');
+window.onscroll = function(){
+  if(document.documentElement.scrollTop > 200) topBtn.style.display = 'block';
+  else topBtn.style.display = 'none';
+};
+
+/* floating hearts */
+function hearts(){
+  const heart = document.createElement('span');
+  heart.innerHTML = "❤";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (14 + Math.random()*18) + "px";
+  heart.style.animationDuration = (4 + Math.random()*4) + "s";
+  document.getElementById('hearts').appendChild(heart);
+  setTimeout(()=> heart.remove(), 8000);
+}
+setInterval(hearts, 800);
+</script>
+</body>
+</html>
